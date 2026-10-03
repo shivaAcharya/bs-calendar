@@ -179,10 +179,27 @@ def generate_index_html(
     .note-box {{
       background: rgba(56, 189, 248, 0.1);
       border-left: 4px solid var(--accent);
-      padding: 1rem;
-      border-radius: 0.375rem;
-      font-size: 0.9rem;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
       color: #bae6fd;
+    }}
+    .note-box p {{
+      margin-bottom: 0.75rem;
+      color: #f0f9ff;
+    }}
+    .note-box ol {{
+      margin-left: 1.5rem;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }}
+    .note-box li {{
+      color: #bae6fd;
+    }}
+    .note-box li strong {{
+      color: #ffffff;
     }}
     footer {{
       text-align: center;
@@ -232,7 +249,13 @@ def generate_index_html(
         <li>Click <strong>"Add calendar"</strong>. Done!</li>
       </ol>
       <div class="note-box">
-        <strong>Mobile Sync Note (Android & iOS):</strong> Newly added web feeds do not automatically appear in the mobile Google Calendar app by default. To display them on your phone: open the Google Calendar app &rarr; go to <strong>Settings</strong> &rarr; find your account and tap the new calendar &rarr; toggle <strong>Sync</strong> to ON.
+        <p><strong>Mobile Sync Note:</strong> Google Calendar does not automatically sync newly subscribed web feeds to mobile apps by default. To make it appear on your phone:</p>
+        <ol>
+          <li>Open the <strong>Google Calendar app</strong> on your Android device or iPhone.</li>
+          <li>Open the side menu (<strong>☰</strong>) and tap <strong>Settings</strong>.</li>
+          <li>Under your Google account, tap <strong>Show more</strong> / find the newly subscribed calendar (<strong>Nepali Date (BS)</strong>).</li>
+          <li>Tap the calendar and turn the <strong>Sync</strong> toggle <strong>ON</strong>.</li>
+        </ol>
       </div>
     </div>
 
