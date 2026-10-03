@@ -34,11 +34,11 @@ Once published to GitHub Pages, your feed URLs will look like:
 
 - **English Feed:**
   ```text
-  https://<your-username>.github.io/<repo-name>/bs-calendar-en.ics
+  https://shivaacharya.github.io/bs-calendar/bs-calendar-en.ics
   ```
 - **Nepali Feed (देवनागरी):**
   ```text
-  https://<your-username>.github.io/<repo-name>/bs-calendar-ne.ics
+  https://shivaacharya.github.io/bs-calendar/bs-calendar-ne.ics
   ```
 
 ### Step 2: Add to Google Calendar (Web)
@@ -102,7 +102,7 @@ If any date outside **1975–2100 BS** is requested, the converter immediately r
 ### Setup
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/bs-calendar.git
+git clone https://github.com/shivaAcharya/bs-calendar.git
 cd bs-calendar
 
 # Create and activate virtual environment
