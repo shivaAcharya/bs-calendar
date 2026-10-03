@@ -122,8 +122,9 @@ python -m bs_calendar generate --years 3 --out dist/
 #### CLI Options
 ```text
 options:
-  --years INT        Number of BS years to generate from the start year (default: 3).
+  --years INT        Number of BS years to generate from the start year.
   --start-year INT   Starting BS year (default: current BS year).
+  --end-year INT     Ending BS year (default: 2100 BS).
   --out PATH         Output folder for feeds and index.html (default: dist/).
   --holidays PATH    Optional holidays JSON file (default: data/holidays.json).
   -q, --quiet        Suppress console output.

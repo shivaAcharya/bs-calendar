@@ -48,7 +48,7 @@ jobs:
 
       - name: Generate Bikram Sambat feeds
         run: |
-          python -m bs_calendar generate --years 3 --out dist/
+          python -m bs_calendar generate --end-year 2100 --out dist/
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5

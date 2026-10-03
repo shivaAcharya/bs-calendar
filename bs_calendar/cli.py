@@ -294,8 +294,8 @@ def _add_generate_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--years",
         type=int,
-        default=3,
-        help="Number of BS years to generate, starting from start-year (default: 3).",
+        default=None,
+        help="Number of BS years to generate, starting from start-year.",
     )
     parser.add_argument(
         "--start-year",
@@ -303,6 +303,15 @@ def _add_generate_args(parser: argparse.ArgumentParser) -> None:
         default=None,
         help=(
             f"Starting Bikram Sambat year (default: current BS year, "
+            f"range: {MIN_BS_YEAR}..{MAX_BS_YEAR})."
+        ),
+    )
+    parser.add_argument(
+        "--end-year",
+        type=int,
+        default=None,
+        help=(
+            f"Ending Bikram Sambat year (default: {MAX_BS_YEAR} BS or start-year + years - 1, "
             f"range: {MIN_BS_YEAR}..{MAX_BS_YEAR})."
         ),
     )
@@ -327,24 +336,43 @@ def _add_generate_args(parser: argparse.ArgumentParser) -> None:
 
 
 def run_generate(
-    years: int = 3,
+    years: int | None = None,
     start_year: int | None = None,
+    end_year: int | None = None,
     out_dir: Path = Path("dist"),
     holidays_file: Path | None = None,
     quiet: bool = False,
 ) -> int:
     """Execute calendar generation."""
-    if years < 1:
-        sys.stderr.write(f"Error: --years must be at least 1, got {years}.\n")
-        return 1
-
     current_bs_year = get_current_bs_year()
     if start_year is None:
         start_year = current_bs_year
 
-    end_year = start_year + years - 1
+    if not (MIN_BS_YEAR <= start_year <= MAX_BS_YEAR):
+        sys.stderr.write(
+            f"Error: Requested start year {start_year} is out of supported "
+            f"bounds ({MIN_BS_YEAR}..{MAX_BS_YEAR} BS).\n"
+        )
+        return 1
 
-    if start_year < MIN_BS_YEAR or end_year > MAX_BS_YEAR:
+    if end_year is not None:
+        if end_year < start_year:
+            sys.stderr.write(
+                f"Error: --end-year ({end_year}) cannot be earlier than --start-year ({start_year}).\n"
+            )
+            return 1
+        years = end_year - start_year + 1
+    elif years is not None:
+        if years < 1:
+            sys.stderr.write(f"Error: --years must be at least 1, got {years}.\n")
+            return 1
+        end_year = start_year + years - 1
+    else:
+        # Default: extend through maximum supported year (2100 BS)
+        end_year = MAX_BS_YEAR
+        years = end_year - start_year + 1
+
+    if not (MIN_BS_YEAR <= end_year <= MAX_BS_YEAR) or years < 1:
         sys.stderr.write(
             f"Error: Requested year range ({start_year}..{end_year} BS) is out of supported "
             f"bounds ({MIN_BS_YEAR}..{MAX_BS_YEAR} BS).\n"
@@ -407,6 +435,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     return run_generate(
         years=args.years,
         start_year=args.start_year,
+        end_year=args.end_year,
         out_dir=args.out,
         holidays_file=args.holidays,
         quiet=args.quiet,
