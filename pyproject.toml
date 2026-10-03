@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bs-calendar"
+version = "0.1.0"
+description = "Subscribable Bikram Sambat (BS, Nepali) calendar feed generator for Google Calendar, Apple Calendar, and Outlook"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = "Shiva Acharya" }
+]
+license = { text = "MIT" }
+keywords = ["bikram-sambat", "nepali-calendar", "icalendar", "google-calendar", "nepal"]
+dependencies = [
+    "nepali-datetime>=1.0.8",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "icalendar>=6.0.0",
+]
+
+[project.scripts]
+bs-calendar = "bs_calendar.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --strict-markers"
